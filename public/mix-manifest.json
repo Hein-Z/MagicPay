@@ -1,0 +1,7 @@
+{
+    "/frontend/js/app.js": "/frontend/js/app.js",
+    "/frontend/css/app.css": "/frontend/css/app.css",
+    "/resources/views/vendor/jsvalidation/bootstrap.php": "/resources/views/vendor/jsvalidation/bootstrap.php",
+    "/resources/views/vendor/jsvalidation/bootstrap4.php": "/resources/views/vendor/jsvalidation/bootstrap4.php",
+    "/resources/views/vendor/jsvalidation/uikit.php": "/resources/views/vendor/jsvalidation/uikit.php"
+}
