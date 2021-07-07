@@ -64,9 +64,19 @@ class PageController extends Controller
 
         return view('frontend.wallet', compact('wallet'));
     }
-    public function transfer()
+
+    public function transfer(Request $request)
     {
         $auth = auth()->guard('web')->user();
+        if ($request->to_phone) {
+            if ($to_user = DB::table('users')
+                ->select('name','phone')
+                ->where('phone', $request->to_phone)
+                ->first()) {
+                return view('frontend.transfer', compact('auth', 'to_user'));
+            }
+            return redirect()->back()->with(['fail' => 'Invalid phone number']);
+        }
         return view('frontend.transfer', compact('auth'));
     }
 

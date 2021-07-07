@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/update-password', 'Frontend\PageController@updatePassword');
     Route::get('/wallet', 'Frontend\PageController@wallet')->name('wallet');
     Route::get('/transfer', 'Frontend\PageController@transfer')->name('transfer');
+
     Route::post('/transfer', 'Frontend\PageController@transferProcess');
     Route::post('/transfer-confirmation', 'Frontend\PageController@transferConfirmation')->name('transfer-confirmation');
     Route::post('/check-user', 'Frontend\PageController@checkUser')->name('check-user');
@@ -27,7 +28,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/qr-code', 'Frontend\PageController@qrCode')->name('qr-code');
     Route::get('/scan', 'Frontend\PageController@scan')->name('scan');
-
 
 });
 

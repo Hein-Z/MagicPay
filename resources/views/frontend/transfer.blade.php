@@ -14,24 +14,28 @@
                                     <label for="from" class="col-sm-4 col-form-label">From</label>
                                     <div class="col-sm-8">
                                         <input type="number" class="form-control " id="from" name="from"
-                                            value="{{ $auth->phone }}" readonly="readonly">
+                                            value="{{ $auth->phone }}" readonly>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item">
                                 <div class="form-group row">
                                     <label for="to_phone" class="col-sm-4 col-form-label">To <span
-                                            id="user-name"></span></label>
+                                            id="user-name"></span><span class="text-success "> (
+                                            {{ isset($to_user) ? $to_user->name : '' }} )</span></label>
                                     <div class="col-sm-8">
                                         <div class="input-group mb-3">
-
                                             <input type="number"
                                                 class="form-control @error('to_phone') is-invalid @enderror" id="to_phone"
-                                                name="to_phone" placeholder="Phone Number" value="{{ old('to_phone') }}">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" id="check-user" type="button"><i
-                                                        class="fas fa-check-circle"></i></button>
-                                            </div>
+                                                name="to_phone" placeholder="Phone Number"
+                                                value="{{ isset($to_user) ? $to_user->phone : old('to_phone') }}" @if (isset($to_user)) readonly @endif>
+                                            @if (!isset($to_user))
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" id="check-user"
+                                                        type="button"><i class="fas fa-check-circle"></i></button>
+                                                </div>
+                                            @endif
+
                                             @error('to_phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

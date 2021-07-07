@@ -2,7 +2,7 @@
 @section('nav-title', 'Scan and Pay')
 
 @section('content')
-    <div class="row mb-5">
+    <div class="row mb-5 pb-5">
         <div class="col-md-8 offset-md-2 ">
             <div class="row">
                 <div class="col-12 text-center h4 mb-3">QR Scaner</div>
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="scanner-model" tabindex="-1" role="dialog">
+    <div class="modal fade" id="scanner-model" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -29,7 +29,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <video width="100%" id="scanner"></video>
+                    {{-- <video width="100%" id="scanner"></video> --}}
+                    <div id="reader" width="600px"></div>
+
                 </div>
                 <div class="modal-footer">
 
@@ -40,26 +42,69 @@
     </div>
 @endsection
 @section('script2')
-    <script src="{{ asset('frontend/js/qr-scanner.umd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/html5-qrcode.min.js') }}"></script>
 
     <script>
-        var videoElem = document.getElementById('scanner');
-        const qrScanner = new QrScanner(videoElem, function(result) {
-            // if (result) {
-            //     qrScanner.stop();
-            //     $('#scanner-model').modal('hide');
-            //     console.log('decoded qr code:', result);
-            // }
-            console.log('decoded qr code:', result);
-        });
+        function onScanSuccess(decodedText, decodedResult) {
+            // handle the scanned code as you like, for example:
+            if (decodedText) {
+                $('#scanner-model').modal('hide');
+                html5QrCode.stop();
+
+                axios.post('/check-user', {
+                    to_phone: decodedText
+                }).then(res => {
+                    $('#spinner-model').modal('hide')
+
+                    if (!res.data.success) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: res.data.user,
+                            text: 'This user is invalided',
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: res.data.user,
+                            text: decodedText,
+                            showCancelButton: true,
+                            confirmButtonText: `Confirm`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/transfer?to_phone=' + decodedText
+                            }
+                        })
+                    }
+
+                }).catch(err => {
+
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                });
+
+
+            }
+        }
+
+        const html5QrCode = new Html5Qrcode("reader");
+        const config = {
+            fps: 10,
+            qrbox: 250
+        };
 
         $('#scanner-model').on('shown.bs.modal', function(e) {
-            qrScanner.start();
+            html5QrCode.start({
+                facingMode: "environment"
+            }, config, onScanSuccess);
+
         })
 
         $('#scanner-model').on('hidden.bs.modal', function(e) {
-            qrScanner.stop();
-
+            html5QrCode.stop();
         })
     </script>
 @endsection

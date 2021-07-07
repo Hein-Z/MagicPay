@@ -60,4 +60,8 @@ class LoginController extends Controller
         $user->save();
     }
 
+    public function username()
+    {
+        return 'phone';
+    }
 }
