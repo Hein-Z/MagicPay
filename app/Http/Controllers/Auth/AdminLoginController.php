@@ -40,6 +40,12 @@ class AdminLoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
+
+    public function username()
+    {
+        return 'email';
+    }
+
     protected function guard()
     {
         return Auth::guard('admin');
@@ -47,6 +53,7 @@ class AdminLoginController extends Controller
 
     public function showLoginForm()
     {
+
         return view('auth.admin_login');
     }
 
