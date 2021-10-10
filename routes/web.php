@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/qr-code', 'Frontend\PageController@qrCode')->name('qr-code');
     Route::get('/scan', 'Frontend\PageController@scan')->name('scan');
+    Route::get('/transaction', 'Frontend\PageController@transaction')->name('transaction');
 
 });
 

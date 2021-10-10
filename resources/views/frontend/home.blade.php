@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 @section('nav-title', 'Magic Pay')
+
 @section('content')
+
     <div class="row mb-5">
         <div class="col-md-8 offset-md-2 ">
             <div class="row">
@@ -104,3 +106,4 @@
     </div>
 
 @endsection
+

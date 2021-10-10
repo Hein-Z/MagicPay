@@ -16,9 +16,9 @@
                     </h4>
                 </div>
                 <div class="col-3 text-center py-1">
-                    <h4 class="mb-0"><a class="text-dark" href="#" style="text-decoration: none"><i
+                    <h4 class="mb-0"><a class="text-dark" href="{{route('transaction')}}" style="text-decoration: none"><i
                                 class="fas fa-exchange-alt"></i><br><span
-                                class="d-none d-md-inline">Transation</span></a>
+                                class="d-none d-md-inline">Transaction</span></a>
                     </h4>
                 </div>
                 <div class="col-3 text-center py-1">

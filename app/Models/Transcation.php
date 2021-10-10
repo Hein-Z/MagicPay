@@ -12,4 +12,12 @@ class Transcation extends Model
     protected $fillable = [
         'ref_no', 'trx_id', 'user_id', 'type', 'amount', 'source_id', 'description',
     ];
+
+    public function source_user(){
+        return $this->belongsTo(User::class,'source_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

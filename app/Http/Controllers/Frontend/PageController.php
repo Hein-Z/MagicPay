@@ -176,10 +176,10 @@ class PageController extends Controller
             Transcation::create([
                 'ref_no' => $ref_no,
                 'trx_id' => UUIDGenerator::trx_id(),
-                'user_id' => $auth->id,
-                'type' => 2,
+                'user_id' => $to_user->id,
+                'type' => 1,
                 'amount' => $request->amount,
-                'source_id' => $to_user->id,
+                'source_id' => $auth->id,
                 'description' => $request->description,
             ]);
             DB::commit();
@@ -201,5 +201,12 @@ class PageController extends Controller
     public function scan()
     {
         return view('frontend.scan');
+    }
+
+    public function transaction(){
+        $user_id=auth()->user()->id;
+
+        $transactions=Transcation::where('user_id',$user_id)->get();
+        return view('frontend.transaction',compact('transactions'));
     }
 }

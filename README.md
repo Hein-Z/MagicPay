@@ -1,6 +1,4 @@
-## About App
-
-# feature
+# Core feature
 
 -   Scan QR code payment
 -   Register with phone no
